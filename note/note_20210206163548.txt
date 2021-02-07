@@ -14,5 +14,5 @@ git remote add origin [repoURL]
   なんとなくわかる
   にほんごのべんきょうもすべき
 
-git push [branchname]
+git push -u origin [branchname]
   ぶちこむ
