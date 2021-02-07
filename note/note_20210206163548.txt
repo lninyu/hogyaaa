@@ -1,0 +1,18 @@
+git init 
+  りぽじとりにしちゃう
+
+git add [hoge]
+  あとで
+
+git commit -m "fooooooo"
+  あとで
+
+git branch -M [branchname]
+  ぶらんちつくる
+
+git remote add origin [repoURL]
+  なんとなくわかる
+  にほんごのべんきょうもすべき
+
+git push [branchname]
+  ぶちこむ
