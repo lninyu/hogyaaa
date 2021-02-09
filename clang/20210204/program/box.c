@@ -7,7 +7,7 @@ void usage();
 void box();
 
 int main(int argc, char *argv[]){
-	if(argc==1||argc>4){puts("error:illegal argment");exit(1);}
+	if(argc==1||argc>4){exit(1);}
 	if(!strcmp(argv[1], "-h")||!strcmp(argv[1], "--help")){
 		err(argc, 2);
 		usage();
@@ -17,6 +17,14 @@ int main(int argc, char *argv[]){
 	}else if(!strcmp(argv[1], "-b")||!strcmp(argv[1], "--bold")){
 		err(argc, 4);
 		box(7, argv[2], argv[3]);
+	}else if(!strcmp(argv[1], "-f")||!strcmp(argv[1], "--fill")){
+		err(argc, 4);
+		for(int y=0;y<atoi(argv[3]);y++){
+			for(int x=0;x<atoi(argv[2]);x++){
+				printf("█");
+			}
+			puts("");
+		}
 	}else{
 		err(argc, 3);
 		box(0, argv[1], argv[2]);
