@@ -1,6 +1,11 @@
 /*
  * todo:utf-8
- * todo:output 2-7
+ * todo:output(2-7)
+ * todo:012    012
+ *     :345 -> 123
+ *     :678    234
+ *
+ * tree|./$0
 **/
 
 #include <stdio.h>
@@ -11,7 +16,7 @@
 #define ESC 0x1B
 #define FG 38
 #define BG 48
-#define M 64
+#define M 256
 
 void output();
 void usage();
@@ -19,7 +24,7 @@ void usage();
 char data;
 int r=255, g=0, b=0, ca=0, cm=0, temp=0;
 
-int main(int argc, char *arg[]){
+int main(int argc, char arg){
   if(argc==1 && !isatty(0)){
     output();
   }else if(argc==2){
@@ -37,7 +42,9 @@ void output(){
     if(r<=0 && b>=M-1){g--;}
     if(g<=0 && b>=M-1){r++;}
     if(g<=0 && r>=M-1){b--;}
-    printf("%c[%d;2;%d;%d;%dm%c", ESC, FG, r*256/M, g*256/M, b*256/M, data);
+    printf("%c[%d;2;%d;%d;%dm", ESC, FG, r*256/M, g*256/M, b*256/M);
+    //printf("%c[%d;2;%d;%d;%dm", ESC, BG, r*256/M, g*256/M, b*256/M);
+    printf("%c", data);
   }
 }
 
