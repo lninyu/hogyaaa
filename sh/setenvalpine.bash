@@ -1,10 +1,14 @@
 #!/bin/bash
 
+###################################
+#                                 #
+# *unmotivated code was appered!  #
+#                                 #
+###################################
+
 deb(){ 
 	[ -n "${DEBUG}" ] && echo "debug:${@}"
 }
-
-alpinesetup(){ echo "alpine-setup"; } #test
 
 _CHECK(){
 	RAND_C=${RANDOM}
@@ -43,6 +47,8 @@ _SETENV(){
 	sshd_d="/etc/ssh/sshd_config"
 	clrp_d="/etc/profile.d/color_prompt"
 	
+	:>/etc/motd
+
 	[ "$(grep 'PermitRootLogin yes' ${sshd_d})" = "PermitRootLogin yes" ] || \
 		cat<<-'EOF'>>${sshd_d} && deb ssh:sshdcfg
 		################################
@@ -109,7 +115,8 @@ _SETENV(){
 	
 	[ "${FLAG_m}" = "all" ] \
 		&& git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim >/dev/null 2>&1 \
-		&& vim +PluginInstall +qall \
+		&& echo 'press ENTER' \
+		&& vim +PluginInstall +qall 2>/dev/null \
 		&& deb vim:plugin
 }
 
@@ -128,10 +135,10 @@ _MAIN(){
 			_CHECK 2>/dev/null
 			case $2 in
 				"0")
-					alpinesetup && FLAG_m="all" && _SETENV
+					alpine-setup && FLAG_m="all" && _SETENV
 					;;
 				"1")
-					alpinesetup && FLAG_m="sim" && _SETENV
+					alpine-setup && FLAG_m="sim" && _SETENV
 					;;
 				"2")
 					FLAG_m="all" && _SETENV
@@ -153,7 +160,8 @@ _MAIN(){
 		echo -n "reboot? (Yes/No)" ; read INPUT
 		case ${INPUT} in
 			("yes"|"Yes"|"YES")
-				echo reboot
+				reboot
+				FLAG_R="T"
 				;;
 			("no"|"No"|"NO")
 				FLAG_R="T"
